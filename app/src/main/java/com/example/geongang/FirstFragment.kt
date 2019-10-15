@@ -1,6 +1,7 @@
 package com.example.geongang
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,13 +15,11 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ViewPortHandler
+import kotlinx.android.synthetic.main.fragment_first.*
 import kotlinx.android.synthetic.main.fragment_first.view.*
 
 class FirstFragment : Fragment() {
     private lateinit var fragmentView: View
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,10 +28,14 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_first, container, false)
         initGraph()
+        fragmentView.startBluetooth.setOnClickListener {
+            val intent = Intent(context,SelectDeviceActivity::class.java)
+            startActivityForResult(intent,1)
+        }
         return fragmentView
     }
 
-    fun initGraph() {
+    private fun initGraph() {
         var entries: ArrayList<Entry> = ArrayList()
         entries.add(Entry(0f, 0f))
         entries.add(Entry(1f, 0f))
