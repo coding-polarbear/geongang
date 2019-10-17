@@ -55,10 +55,7 @@ class FirstFragment : Fragment() {
         entries.add(Entry(15f, 1000f))
         entries.add(Entry(16f, 400f))
 
-
-
-
-        var labels = arrayListOf<String>("", "", "", "", "", "", "오전 7시", "", "", "", "오후 12시", "", "", "", "", "오후 17시")
+        var labels = arrayListOf<String>()
         var dataset = LineDataSet(entries, "")
         dataset.lineWidth = 5f
         dataset.color = ContextCompat.getColor(context!!, R.color.colorAccent)
@@ -67,15 +64,31 @@ class FirstFragment : Fragment() {
         dataset.valueFormatter = DefaultValueFormatter(0)
         fragmentView.lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         fragmentView.lineChart.xAxis.setDrawGridLines(false)
-        fragmentView.lineChart.xAxis.valueFormatter = object: ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return labels[value.toInt()]
-            }
-        }
 
         var data = LineData(dataset)
         fragmentView.lineChart.data = data
         fragmentView.lineChart.animateXY(1000, 1000)
+    }
+
+    fun refreshGraph(list: java.util.ArrayList<Float>) {
+        val entries = java.util.ArrayList<Entry>()
+        val labels = java.util.ArrayList<String>()
+        var j = 0
+        if (list.size > 50) {
+            j = list.size - 50
+        }
+        for (i in j until list.size) {
+            entries.add(Entry(i.toFloat(), list[i]))
+        }
+        val dataset = LineDataSet(entries, "")
+        dataset.lineWidth = 5f
+        dataset.color = ContextCompat.getColor(context!!, R.color.colorAccent)
+        dataset.setDrawValues(false)
+        dataset.setDrawCircles(false)
+
+        val data = LineData(dataset)
+        fragmentView.lineChart.data = data
+        fragmentView.lineChart.invalidate()
     }
 
     override fun onResume() {
@@ -85,5 +98,33 @@ class FirstFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = FirstFragment()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1&&resultCode==-1){
+            val entries = java.util.ArrayList<Entry>()
+            val labels = java.util.ArrayList<String>()
+            var j = 0
+            var sum = 0
+            val list = data?.extras!!.getIntegerArrayList("result")
+            for (i in j until list!!.size) {
+                entries.add(Entry(i.toFloat(), list[i].toFloat()))
+                sum +=list[i]
+            }
+            val dataset = LineDataSet(entries, "")
+            dataset.lineWidth = 5f
+            dataset.color = ContextCompat.getColor(context!!, R.color.colorAccent)
+            dataset.setDrawValues(false)
+            dataset.setDrawCircles(false)
+
+            val data = LineData(dataset)
+            fragmentView.lineChart.data = data
+            fragmentView.lineChart.invalidate()
+            fragmentView.textView.text = (sum.toFloat()/list.size).toString()
+            fragmentView.todayExerciseTime.text = (1.0/600*list.size).toString() + "분"
+            //  보험료 api call
+            // fragmentView.discountPrice.text
+        }
     }
 }

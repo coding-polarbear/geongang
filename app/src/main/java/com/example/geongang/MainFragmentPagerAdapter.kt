@@ -19,7 +19,7 @@ class MainFragmentPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm, BE
 
     override fun getPageTitle(position: Int): CharSequence? {
         return if(position == 0) {
-            "오늘의 기록"
+            "최근의 기록"
         } else {
             "전체 기록"
         }

@@ -25,8 +25,12 @@ public class SelectDeviceActivity extends AppCompatActivity implements FragmentM
     }
 
     public void endactivity(ArrayList<Float> list) {
+        ArrayList<Integer> integers = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            integers.add(Math.round(list.get(i)));
+        }
         Intent resultintent = new Intent();
-        resultintent.putExtra("result", list);
+        resultintent.putIntegerArrayListExtra("result", integers);
         setResult(RESULT_OK, resultintent);
         finish();
     }

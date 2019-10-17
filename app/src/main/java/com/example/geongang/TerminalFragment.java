@@ -157,7 +157,10 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
         liveChart = fragmentView.findViewById(R.id.liveChart);
         start = (Button)fragmentView.findViewById(R.id.startA);
-        start.setOnClickListener(v -> viewChange("A"));
+        start.setOnClickListener(v -> {
+            viewChange("A");
+            recent.clear();
+        });
         end = (Button)fragmentView.findViewById(R.id.endB);
         end.setOnClickListener(v -> {
             viewChange2("B");
