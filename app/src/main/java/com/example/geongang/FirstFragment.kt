@@ -108,6 +108,7 @@ class FirstFragment : Fragment() {
             var j = 0
             var sum = 0
             val list = data?.extras!!.getIntegerArrayList("result")
+            var time = data?.extras!!.getFloat("time");
             for (i in j until list!!.size) {
                 entries.add(Entry(i.toFloat(), list[i].toFloat()))
                 sum +=list[i]
@@ -122,7 +123,7 @@ class FirstFragment : Fragment() {
             fragmentView.lineChart.data = data
             fragmentView.lineChart.invalidate()
             fragmentView.textView.text = (sum.toFloat()/list.size).toString()
-            fragmentView.todayExerciseTime.text = (1.0/600*list.size).toString() + "분"
+            fragmentView.todayExerciseTime.text = (time).toString() + "분"
             //  보험료 api call
             // fragmentView.discountPrice.text
         }

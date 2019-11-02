@@ -14,6 +14,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,6 +43,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
 
@@ -171,7 +175,18 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
             minStandard = 999;
         });
         stopSave = (Button)fragmentView.findViewById(R.id.stopSave);
-        stopSave.setOnClickListener(v -> end());
+        stopSave.setOnClickListener(v -> {
+            EmgService emgService = RetrofitUtil.INSTANCE.getRetrofit().create(EmgService.class);
+            ArrayList<Integer> result = new ArrayList<>();
+            for(int i=0; i<recent.size(); i++) {
+                result.add(Math.round(recent.get(i)));
+            }
+            emgService.getEmg(new EmgRequest(result, 0.1f))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(Emg -> end(Emg.getExerciseTime())
+                    , t -> Log.e("error", t.getLocalizedMessage()));
+        });
 
         receiveText.append("연결이 완료될 때까지 기다려 주세요\n\n");
         receiveText.append("본 어플은 프로토타입 입니다\n\n");
@@ -240,8 +255,8 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         end.setVisibility(View.GONE);
     }
 
-    public void end(){
-        ((SelectDeviceActivity)getActivity()).endactivity(recent);
+    public void end(Float time){
+        ((SelectDeviceActivity)getActivity()).endactivity(recent, time);
     }
 
     @Override

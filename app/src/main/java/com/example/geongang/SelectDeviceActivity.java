@@ -24,13 +24,14 @@ public class SelectDeviceActivity extends AppCompatActivity implements FragmentM
             onBackStackChanged();
     }
 
-    public void endactivity(ArrayList<Float> list) {
+    public void endactivity(ArrayList<Float> list, Float time) {
         ArrayList<Integer> integers = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
             integers.add(Math.round(list.get(i)));
         }
         Intent resultintent = new Intent();
         resultintent.putIntegerArrayListExtra("result", integers);
+        resultintent.putExtra("time", time);
         setResult(RESULT_OK, resultintent);
         finish();
     }
