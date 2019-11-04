@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectDeviceActivity"/>
-        <service android:name="SerialService"></service>
+        <activity android:name=".SelectDeviceActivity"
+            android:screenOrientation="portrait" />
+        <service android:name="SerialService"
+            android:screenOrientation="portrait" ></service>
     </application>
 
 </manifest>
