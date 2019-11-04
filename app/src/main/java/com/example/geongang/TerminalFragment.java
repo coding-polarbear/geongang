@@ -1,5 +1,6 @@
 package com.example.geongang;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -150,6 +151,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     /*
      * UI
      */
+    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentView = inflater.inflate(R.layout.fragment_terminal, container, false);
@@ -184,7 +186,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
             emgService.getEmg(new EmgRequest(result, 0.1f))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(Emg -> end(Emg.getExerciseTime())
+                    .subscribe(Emg -> end(Emg.getExerciseTime(), Emg.getMonthlyPremium())
                     , t -> Log.e("error", t.getLocalizedMessage()));
         });
 
@@ -255,8 +257,8 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         end.setVisibility(View.GONE);
     }
 
-    public void end(Float time){
-        ((SelectDeviceActivity)getActivity()).endactivity(recent, time);
+    public void end(Float time, Float money){
+        ((SelectDeviceActivity)getActivity()).endactivity(recent, time, money);
     }
 
     @Override

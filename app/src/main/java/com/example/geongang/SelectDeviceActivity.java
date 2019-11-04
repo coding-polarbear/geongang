@@ -24,7 +24,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements FragmentM
             onBackStackChanged();
     }
 
-    public void endactivity(ArrayList<Float> list, Float time) {
+    public void endactivity(ArrayList<Float> list, Float time, Float money) {
         ArrayList<Integer> integers = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
             integers.add(Math.round(list.get(i)));
@@ -32,6 +32,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements FragmentM
         Intent resultintent = new Intent();
         resultintent.putIntegerArrayListExtra("result", integers);
         resultintent.putExtra("time", time);
+        resultintent.putExtra("money", money);
         setResult(RESULT_OK, resultintent);
         finish();
     }

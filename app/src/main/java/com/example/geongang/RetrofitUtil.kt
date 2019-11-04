@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 public object RetrofitUtil {
     public var retrofit = Retrofit.Builder()
-        .baseUrl("http://10.23.48.68:3000")
+        .baseUrl("http://10.23.48.39:3000")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()

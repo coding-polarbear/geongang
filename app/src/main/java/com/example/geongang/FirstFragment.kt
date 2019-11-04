@@ -108,7 +108,10 @@ class FirstFragment : Fragment() {
             var j = 0
             var sum = 0
             val list = data?.extras!!.getIntegerArrayList("result")
-            var time = data?.extras!!.getFloat("time");
+            var time = data?.extras!!.getFloat("time")
+
+            var money =  data?.extras!!.getFloat("money")
+            fragmentView.discountPrice.text = money.toInt().toString() + "원"
             for (i in j until list!!.size) {
                 entries.add(Entry(i.toFloat(), list[i].toFloat()))
                 sum +=list[i]
