@@ -123,7 +123,7 @@ class FirstFragment : Fragment() {
             fragmentView.lineChart.data = data
             fragmentView.lineChart.invalidate()
             fragmentView.textView.text = (sum.toFloat()/list.size).toString()
-            fragmentView.todayExerciseTime.text = (time).toString() + "분"
+            fragmentView.todayExerciseTime.text = Converter.convertTime(time)
             //  보험료 api call
             // fragmentView.discountPrice.text
         }
