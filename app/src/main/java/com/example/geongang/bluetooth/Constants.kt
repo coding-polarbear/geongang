@@ -1,4 +1,6 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
+
+import com.example.geongang.BuildConfig
 
 internal object Constants {
 

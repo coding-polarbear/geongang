@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket

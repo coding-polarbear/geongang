@@ -1,5 +1,6 @@
 package com.example.geongang
 
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
@@ -14,44 +15,38 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 
 import com.example.geongang.bluetooth.TerminalFragment
 
 import java.util.ArrayList
-import java.util.Collections
 
 class DevicesFragment : ListFragment() {
 
-    private val bluetoothAdapter: BluetoothAdapter?
-    private val listItems: ArrayList<BluetoothDevice>
+    private val bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
+    private val listItems: ArrayList<BluetoothDevice> = ArrayList()
     private var listAdapter: ArrayAdapter<BluetoothDevice>? = null
-
-    init {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        listItems = ArrayList()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         listAdapter = object : ArrayAdapter<BluetoothDevice>(activity!!, 0, listItems) {
             override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-                var view = view
+                var fragmentView = view
                 val device = listItems[position]
-                if (view == null)
-                    view =
+                if (fragmentView == null)
+                    fragmentView =
                         activity!!.layoutInflater.inflate(R.layout.device_list_item, parent, false)
-                val text1 = view!!.findViewById<TextView>(R.id.text1)
-                val text2 = view.findViewById<TextView>(R.id.text2)
+                val text1 = fragmentView!!.findViewById<TextView>(R.id.text1)
+                val text2 = fragmentView.findViewById<TextView>(R.id.text2)
                 text1.text = device.name
                 text2.text = device.address
-                return view
+                return fragmentView
             }
         }
     }
 
+    @SuppressLint("InflateParams")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListAdapter(null)
@@ -81,24 +76,24 @@ class DevicesFragment : ListFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == R.id.bt_settings) {
+        return if (id == R.id.bt_settings) {
             val intent = Intent()
             intent.action = android.provider.Settings.ACTION_BLUETOOTH_SETTINGS
             startActivity(intent)
-            return true
+            true
         } else {
-            return super.onOptionsItemSelected(item)
+            super.onOptionsItemSelected(item)
         }
     }
 
-    internal fun refresh() {
+    private fun refresh() {
         listItems.clear()
         if (bluetoothAdapter != null) {
             for (device in bluetoothAdapter.bondedDevices)
                 if (device.type != BluetoothDevice.DEVICE_TYPE_LE)
                     listItems.add(device)
         }
-        Collections.sort(listItems) { a, b -> compareTo(a, b) }
+        listItems.sortWith(Comparator { a, b -> compareTo(a, b) })
         listAdapter!!.notifyDataSetChanged()
     }
 
@@ -118,8 +113,8 @@ class DevicesFragment : ListFragment() {
          * sort by name, then address. sort named devices first
          */
         internal fun compareTo(a: BluetoothDevice, b: BluetoothDevice): Int {
-            val aValid = a.name != null && !a.name.isEmpty()
-            val bValid = b.name != null && !b.name.isEmpty()
+            val aValid = a.name != null && a.name.isNotEmpty()
+            val bValid = b.name != null && b.name.isNotEmpty()
             if (aValid && bValid) {
                 val ret = a.name.compareTo(b.name)
                 return if (ret != 0) ret else a.address.compareTo(b.address)

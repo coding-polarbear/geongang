@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.utils
 
 import kotlin.math.roundToInt
 

@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
+import com.example.geongang.DevicesFragment
+import com.example.geongang.R
 
 import java.util.ArrayList
 

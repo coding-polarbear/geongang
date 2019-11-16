@@ -8,14 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import com.example.geongang.bluetooth.SelectDeviceActivity
+import com.example.geongang.utils.Converter
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.DefaultValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
-import kotlinx.android.synthetic.main.fragment_first.*
 import kotlinx.android.synthetic.main.fragment_first.view.*
 
 class FirstFragment : Fragment() {
@@ -29,7 +28,7 @@ class FirstFragment : Fragment() {
         fragmentView = inflater.inflate(R.layout.fragment_first, container, false)
         initGraph()
         fragmentView.startBluetooth.setOnClickListener {
-            val intent = Intent(context,SelectDeviceActivity::class.java)
+            val intent = Intent(context, SelectDeviceActivity::class.java)
             startActivityForResult(intent,1)
         }
         return fragmentView

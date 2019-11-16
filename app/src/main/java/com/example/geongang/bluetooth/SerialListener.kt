@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
 
 interface SerialListener {
     fun onSerialConnect()

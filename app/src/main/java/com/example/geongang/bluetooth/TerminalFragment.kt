@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -26,6 +26,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.geongang.entity.EmgRequest
+import com.example.geongang.EmgService
+import com.example.geongang.R
+import com.example.geongang.utils.RetrofitUtil
 
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -43,7 +47,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlin.math.roundToInt
 
-class TerminalFragment : Fragment(), ServiceConnection, SerialListener {
+class TerminalFragment : Fragment(), ServiceConnection,
+    SerialListener {
 
     private var deviceAddress: String? = null
     private var newline = "\r\n"

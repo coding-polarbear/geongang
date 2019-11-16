@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.bluetooth
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.app.NotificationCompat
+import com.example.geongang.R
 
 import java.util.LinkedList
 import java.util.Queue

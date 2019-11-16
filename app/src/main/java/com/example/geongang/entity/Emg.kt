@@ -1,4 +1,4 @@
-package com.example.geongang
+package com.example.geongang.entity
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

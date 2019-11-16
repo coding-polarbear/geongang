@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectDeviceActivity"
+        <activity android:name=".bluetooth.SelectDeviceActivity"
             android:screenOrientation="portrait" />
-        <service android:name="SerialService"></service>
+        <service android:name=".bluetooth.SerialService"></service>
     </application>
 
 </manifest>
