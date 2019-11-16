@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.example.geongang.bluetooth.SelectDeviceActivity
 import com.example.geongang.utils.Converter
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry

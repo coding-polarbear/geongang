@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment
 import com.example.geongang.entity.EmgRequest
 import com.example.geongang.EmgService
 import com.example.geongang.R
+import com.example.geongang.SelectDeviceActivity
 import com.example.geongang.utils.RetrofitUtil
 
 import com.github.mikephil.charting.charts.LineChart
