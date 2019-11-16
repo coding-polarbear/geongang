@@ -1,4 +1,4 @@
-package com.example.geongang.bluetooth
+package com.example.geongang
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -27,9 +27,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.geongang.entity.EmgRequest
-import com.example.geongang.EmgService
-import com.example.geongang.R
-import com.example.geongang.SelectDeviceActivity
+import com.example.geongang.bluetooth.SerialListener
+import com.example.geongang.bluetooth.SerialService
+import com.example.geongang.bluetooth.SerialSocket
 import com.example.geongang.utils.RetrofitUtil
 
 import com.github.mikephil.charting.charts.LineChart

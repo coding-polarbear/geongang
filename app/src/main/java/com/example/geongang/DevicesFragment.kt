@@ -17,8 +17,6 @@ import android.widget.TextView
 
 import androidx.fragment.app.ListFragment
 
-import com.example.geongang.bluetooth.TerminalFragment
-
 import java.util.ArrayList
 
 class DevicesFragment : ListFragment() {
